@@ -1,9 +1,9 @@
 "use client";
 import { useState } from "react"; 
 import { useSearchParams } from "next/navigation";
-    const params = useSearchParams();
     
     export default function ContactForm() { 
+        const params = useSearchParams();
      const [form, setForm] = useState({ 
         name: "", 
         email: "", 
