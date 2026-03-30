@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import ContactForm from ".ContactForm";
+import ContactForm from "./ContactFormTemp";
 
 export default function Contact(){
 return ( 
