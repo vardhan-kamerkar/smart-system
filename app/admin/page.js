@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 export default function Admin() {
   const [products, setProducts] = useState([]);
+  const [services, setServices] = useState([]);
   const [enquiries, setEnquiries] = useState([]);
   const [editing, setEditing] = useState(null);
 
@@ -12,12 +13,21 @@ export default function Admin() {
     description: "",
     image: "",
   });
+  const [forme, setForme] = useState({
+    name: "",
+    category: "",
+    description: ""
+  });
 
   // ================= LOAD DATA =================
   const loadProducts = () => {
     fetch("/api/products")
       .then(res => res.json())
       .then(setProducts);
+  };
+
+  const loadServices = () =>{
+    fetch("/api/services").then(res => res.json()).then(setServices);
   };
 
   const loadEnquiries = () => {
@@ -29,6 +39,7 @@ export default function Admin() {
   useEffect(() => {
     loadProducts();
     loadEnquiries();
+    loadServices();
   }, []);
 
   // ================= ADD PRODUCT =================
@@ -40,9 +51,20 @@ export default function Admin() {
       },
       body: JSON.stringify(form),
     });
-
+  
     setForm({ name: "", category: "", description: "", image: "" });
     loadProducts();
+  };
+  const addService = async () => {
+    await fetch("/api/services", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(forme),
+    });  
+   setForme({ name: "", category: "", description: ""});
+    loadServices();
   };
 
   // ================= DELETE PRODUCT =================
@@ -147,6 +169,33 @@ export default function Admin() {
           {editing ? "Save Changes" : "Add Product"}
         </button>
       </div>
+      
+  <div className="bg-white p-6 rounded-xl shadow mb-6 max-w-md">
+
+        <input
+          className="w-full border p-2 mb-2 rounded"
+          placeholder="Name"
+          value={forme.name}
+          onChange={e => setForme({ ...forme, name: e.target.value })}
+        />
+
+        <input
+          className="w-full border p-2 mb-2 rounded"
+          placeholder="Category"
+          value={forme.category}
+          onChange={e => setForme({ ...forme, category: e.target.value })}
+        />
+
+        <textarea
+          className="w-full border p-2 mb-2 rounded"
+          placeholder="Description"
+          value={forme.description}
+          onChange={e => setForme({ ...forme, description: e.target.value })}
+        />
+
+        <button onClick={addService}></button>
+      </div>
+          
 
       {/* ================= PRODUCT LIST ================= */}
       <h2 className="text-xl font-bold mb-3">Products</h2>
