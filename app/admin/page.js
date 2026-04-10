@@ -1,5 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
+import {Navbar} from "../../components/Navbar";
+import {Footer} from "../../components/Footer";
 
 export default function Admin() {
   const [products, setProducts] = useState([]);
@@ -109,26 +111,27 @@ export default function Admin() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-
-      <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
+    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 p-6">
+      <Navbar></Navbar>
+      <h1 className="text-3xl font-bold mb-10 text-center">Admin Dashboard</h1>
 
       {/* ================= STATS ================= */}
-      <div className="flex gap-4 mb-6">
-        <div className="bg-white p-4 rounded shadow w-40">
+     <div className="flex flex-col items-center">
+      <div className="flex gap-6 mb-8">
+        <div className="bg-white/40 backdrop-blur-lg p-6 rounded-2xl shadow transition transform hover:scale-110 hover:shadow-xl w-44 text-center">
           <p className="text-gray-500">Products</p>
           <h2 className="text-xl font-bold">{products.length}</h2>
         </div>
 
-        <div className="bg-white p-4 rounded shadow w-40">
+        <div className="bg-white/40 backdrop-blur-lg p-6 rounded-2xl shadow transition transform hover:scale-110 hover:shadow-xl w-44 text-center">
           <p className="text-gray-500">Enquiries</p>
           <h2 className="text-xl font-bold">{enquiries.length}</h2>
         </div>
       </div>
 
       {/* ================= ADD / EDIT FORM ================= */}
-      <div className="bg-white p-6 rounded-xl shadow mb-6 max-w-md">
-        <h2 className="text-xl font-bold mb-4">
+      <div className="bg-white/40 backdrop-blur-xl p-6 rounded-xl shadow mb-6 max-w-md">
+        <h2 className="text-xl font-bold mb-4 text-center">
           {editing ? "Edit Product" : "Add Product"}
         </h2>
 
@@ -169,6 +172,7 @@ export default function Admin() {
           {editing ? "Save Changes" : "Add Product"}
         </button>
       </div>
+      </div>
       
   <div className="bg-white p-6 rounded-xl shadow mb-6 max-w-md">
 
@@ -204,7 +208,7 @@ export default function Admin() {
         {products.map(p => (
           <div
             key={p._id}
-            className="bg-white p-4 rounded-xl shadow hover:shadow-lg transition"
+            className="bg-white/40 backdrop-blur-lg p-4 rounded-xl shadow hover:shadow-lg transition"
           >
             
 
@@ -233,7 +237,7 @@ export default function Admin() {
       {/* ================= ENQUIRIES ================= */}
       <h2 className="text-xl font-bold mb-3">Recent Enquiries</h2>
 
-      <div className="bg-white rounded-xl shadow p-4 overflow-auto">
+      <div className="bg-white/40 backdrop-blur-xl rounded-xl shadow p-4 overflow-auto">
         <table className="w-full text-sm">
           <thead>
             <tr className="text-left border-b">
@@ -258,7 +262,7 @@ export default function Admin() {
           </tbody>
         </table>
       </div>
-
+     <Footer></Footer>
     </div>
   );
 }
