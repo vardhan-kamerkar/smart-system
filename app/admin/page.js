@@ -2,8 +2,10 @@
 import { useEffect, useState } from "react";
 import {Navbar} from "../../components/Navbar";
 import {Footer} from "../../components/Footer";
+import {useRouter} from "next/navigation";
 
 export default function Admin() {
+  const router = useRouter();
   const [products, setProducts] = useState([]);
   const [services, setServices] = useState([]);
   const [enquiries, setEnquiries] = useState([]);
@@ -20,7 +22,12 @@ export default function Admin() {
     category: "",
     description: ""
   });
-
+useEffect(()=>{
+  const token = localStorage.getItem("token");
+  if(!token){
+    router.push("/login")
+  }
+},[]);
   // ================= LOAD DATA =================
   const loadProducts = () => {
     fetch("/api/products")
@@ -84,6 +91,13 @@ export default function Admin() {
 
     loadProducts();
   };
+  const deleteEnquiry = async(id) =>{
+    await fetch("/api/enquiry",{
+      method:"DELETE",
+      body:JSON.stringify({id}),
+    });
+    setEnquiries(enquiries.filter(e=>e._id !==id));
+  };
 
   // ================= EDIT =================
   const startEdit = (p) => {
@@ -108,23 +122,29 @@ export default function Admin() {
     setEditing(null);
     setForm({ name: "", category: "", description: "", image: "" });
     loadProducts();
+    
   };
+  const handleLogout = () =>{
+      localStorage.removeItem("token");
+      router.push("/login");
+    } 
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 p-6">
       <Navbar></Navbar>
       <h1 className="text-3xl font-bold mb-10 text-center">Admin Dashboard</h1>
+      <button onClick={handleLogout}className="bg-red-500 text-white px-4 py-2 rounded">logout</button>
 
       {/* ================= STATS ================= */}
      <div className="flex flex-col items-center">
       <div className="flex gap-6 mb-8">
-        <div className="bg-white/40 backdrop-blur-lg p-6 rounded-2xl shadow transition transform hover:scale-110 hover:shadow-xl w-44 text-center">
-          <p className="text-gray-500">Products</p>
+        <div className="bg-white/40 backdrop-blur-lg p-6 rounded-2xl shadow transition-transform duration-300 ease-in-out hover:scale-150 hover:shadow-xl w-44 text-center">
+          <p className="text-black-500">Products</p>
           <h2 className="text-xl font-bold">{products.length}</h2>
         </div>
 
-        <div className="bg-white/40 backdrop-blur-lg p-6 rounded-2xl shadow transition transform hover:scale-110 hover:shadow-xl w-44 text-center">
-          <p className="text-gray-500">Enquiries</p>
+        <div className="bg-white/40 backdrop-blur-lg p-6 rounded-2xl shadow transition-transform duration-300 easy-in-out hover:scale-150 hover:shadow-xl w-44 text-center">
+          <p className="text-black-500">Enquiries</p>
           <h2 className="text-xl font-bold">{enquiries.length}</h2>
         </div>
       </div>
@@ -197,7 +217,7 @@ export default function Admin() {
           onChange={e => setForme({ ...forme, description: e.target.value })}
         />
 
-        <button onClick={addService}></button>
+        <button onClick={addService}className="w-full border p-2 mb-2 rounded">addservice</button>
       </div>
           
 
@@ -246,6 +266,7 @@ export default function Admin() {
               <th className="p-2">Phone</th>
               <th className="p-2">Product</th>
               <th className="p-2">Message</th>
+              <th className="p-2">Action</th>
             </tr>
           </thead>
 
@@ -257,6 +278,10 @@ export default function Admin() {
                 <td className="p-2">{e.phone}</td>
                 <td className="p-2">{e.product}</td>
                 <td className="p-2">{e.message}</td>
+                <td className="p-2">
+                  <button onClick={()=>
+                    deleteEnquiry(e._id)}className="bg-red-500 text-white px-3 py-1 rounded">Delete</button>
+                </td>
               </tr>
             ))}
           </tbody>

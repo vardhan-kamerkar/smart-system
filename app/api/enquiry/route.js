@@ -23,3 +23,13 @@ export async function POST(req) {
     return Response.json({error:"failed to save"},{status:500})
 }
 }
+
+export async function DELETE(req){
+    await connectDB();
+    const {id} = await req.json();
+    if(!id){
+        return Response.json({error:"id required"});
+    }
+    await Enquiry.findByIdAndDelete(id);
+    return Response.json({message:"enquiry deleted"});
+}

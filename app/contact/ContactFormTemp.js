@@ -25,7 +25,7 @@ const submit = async () => {
     return(
         <div>
             <div className="min-h-screen flex justify-center items-center bg-gray-100">
-    <div className="bg-white p-6 rounded-xl shadow w-full max-w-md"> 
+    <div className="bg-white/40 p-6 rounded-xl shadow w-full max-w-md"> 
     <h1 className="text-xl font-bond mb-4">Contact</h1> 
     <input className="w-full border p-2 mb-2" placeholder="Name" onChange={e => setForm({ ...form, name: e.target.value })} /> 
     <input className="w-full border p-2 mb-2" placeholder="Email" onChange={e => setForm({ ...form, email: e.target.value })} /> 

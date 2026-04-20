@@ -26,7 +26,7 @@ if (data.token) {
 
 return ( 
     <div className="min-h-screen flex justify-center items-center bg-gray-100">
-<div className="bg-white p-6 rounded-xl shadow w-80"> 
+<div className="bg-white/40 p-6 rounded-xl shadow w-80"> 
     <h1 className="text-xl font-bold mb-4">Login</h1> 
     <input className="w-full border p-2 mb-2" placeholder="email" onChange={e => setEmail(e.target.value)} /> 
     <input className="w-full border p-2 mb-2" type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} /> 

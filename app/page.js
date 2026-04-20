@@ -7,13 +7,14 @@ import { Footer } from "../components/Footer";
 export default function Home() { 
   const [products, setProducts] = useState([]);
   const [services, setServices] = useState([]);
-
+ 
 useEffect(() => { 
   fetch("/api/products").then(res => res.json()).then(setProducts); }, 
   []);
 useEffect(() => { 
   fetch("/api/services").then(res => res.json()).then(setServices); }, 
   []);  
+ 
 
 return ( 
 <div className="min-h-screen flex flex-col bg-[length:400%_400%] bg-gradient-to-br from-indigo-200 via-purple-200 to-pink-200 animate-[gradientMove_12s_ease_infinite]">
@@ -22,6 +23,7 @@ return (
   <h1 className="text-4xl font-bold text-black-800 mb-2">products</h1>
  </div>
   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+   
   {products.map(p =>(
     <div key={p._id}className="relative rounded-2xl border border-white/30 bg-white/30 backdrop-blur-xl shadow-lg hover:shadow-2xl transition duration-300 overflow-hidden group hover:scale-[1.02]">
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-600 bg-gradient-to-r from-indigo-400/30 via-purple-400/30 to-pink-400/30 blur-xl"></div>
@@ -49,7 +51,7 @@ return (
       </div>
   ))}
 </div>
-<div className="flex justify-center"><a href="/contact"><button className="w-full bg-blue-500 text-white py-2 rounded">enquiry now</button></a></div>
+<div className="flex justify-center"><a href="/contact"><button className="bg-red-500 text-white width:100px hright:30px px-3 py-1 rounded">enquiry now</button></a></div>
 <Footer></Footer>
 <style jsx global>{`
 @keyframes gradientMoe {
