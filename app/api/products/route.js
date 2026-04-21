@@ -8,6 +8,9 @@ export async function GET() {
     return Response.json(data);
     }catch(error){
         console.log("database error",error);
+        return Response.json({
+            error:"failed to fetch"
+        },{status:500});
     } 
 }
 export async function POST(req) { 
