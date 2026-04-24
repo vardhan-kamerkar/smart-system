@@ -51,7 +51,7 @@ return (
       </div>
   ))}
 </div>
-<div className="flex justify-center"><a href="/contact"><button className="bg-red-500 text-white px-6 py-4 rounded">enquiry now</button></a></div>
+<div className="flex justify-center px-6 py-4"><a href="/contact"><button className="bg-red-500 text-white px-6 py-4 rounded">enquiry now</button></a></div>
 <Footer></Footer>
 <style jsx global>{`
 @keyframes gradientMoe {
