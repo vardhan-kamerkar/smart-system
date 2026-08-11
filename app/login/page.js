@@ -29,7 +29,7 @@ return (
 <div className="bg-white/40 p-6 rounded-xl shadow w-80"> 
     <h1 className="text-xl font-bold mb-4">Login</h1> 
     <input className="w-full border p-2 mb-2" placeholder="email" onChange={e => setEmail(e.target.value)} /> 
-    <input className="w-full border p-2 mb-2" type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} /> 
+     <input className="w-full border p-2 mb-2" type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} /> 
     <button onClick={login}className="w-full bg-blue-500 text-white py-2 rounded">Login</button> 
     </div> 
     </div>
