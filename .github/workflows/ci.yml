@@ -4,10 +4,13 @@ on:
   push:
     branches:
       - main
-
   pull_request:
     branches:
       - main
+      
+permissions:
+  contents: read
+  packages: write
 
 jobs:
   test-and-build:
@@ -30,3 +33,13 @@ jobs:
        run: npm run build
      - name: Build Docker image
        run: docker build -t smart-system:test .
+     - name: log in to github container registry
+       uses: docker/login-action@v3
+       with:
+         registry: ghcr.io
+         username: ${{ github.actor }}
+         password: ${{ secrets.GITHUB_TOKEN }}
+     - name: tag Docker image
+       run: docker tag smart-system:test ghcr.io/${{ github.repository_owner }}/smart-system:latest
+     - name: push Docker image
+       run: docker push ghcr.io/${{ github.repository_owner }}/smart-system:latest
